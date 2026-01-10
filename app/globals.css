@@ -12,31 +12,87 @@ body {
 
 body {
   color: #000;
-  background: #fff;
+  background: #fdfdfd; /* Slightly off-white for better paper feel */
   font-family: 'Syne', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   position: relative;
+  overflow-x: hidden;
+  cursor: none; /* We'll add a custom cursor */
 }
 
-/* Artistic Paper Texture Overlay */
-body::before {
-  content: "";
+/* Dynamic Noise Grain */
+.noise-overlay {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200vh;
+  background: transparent url('https://www.transparenttextures.com/patterns/natural-paper.png') repeat 0 0;
+  background-repeat: repeat;
+  animation: noise 0.2s infinite;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 50;
+}
+
+@keyframes noise {
+  0% { transform: translate(0,0) }
+  10% { transform: translate(-5%,-5%) }
+  20% { transform: translate(-10%,5%) }
+  30% { transform: translate(5%,-10%) }
+  40% { transform: translate(-5%,15%) }
+  50% { transform: translate(-10%,5%) }
+  60% { transform: translate(15%,0) }
+  70% { transform: translate(0,10%) }
+  80% { transform: translate(-15%,0) }
+  90% { transform: translate(10%,5%) }
+  100% { transform: translate(5%,0) }
+}
+
+/* Interactive Aura Light */
+.cursor-aura {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0) 70%);
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-  opacity: 0.15;
+  border-radius: 50%;
   pointer-events: none;
-  z-index: 10;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  transition: width 0.3s, height 0.3s;
+}
+
+/* Custom Cursor Dot */
+.custom-cursor {
+  width: 8px;
+  height: 8px;
+  background: #000;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
+}
+
+.cursor-hover {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.2);
 }
 
 .handwritten-name {
   font-family: 'Rock Salt', cursive;
-  filter: contrast(110%) brightness(90%);
+  filter: contrast(120%) brightness(80%);
   display: inline-block;
-  transform: rotate(-2deg);
   cursor: default;
+  user-select: none;
 }
 
 @keyframes fadeInScale {
