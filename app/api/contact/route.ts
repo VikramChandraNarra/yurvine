@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       from: 'Yuva Website <onboarding@resend.dev>', // Change this once you verify your domain in Resend
       to: notificationEmail,
       subject: `New Message from ${name}`,
-      reply_to: email,
+      replyTo: email,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     });
 
