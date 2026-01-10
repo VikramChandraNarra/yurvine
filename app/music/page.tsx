@@ -217,7 +217,7 @@ export default function MusicPage() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, cubicBezier: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 display: 'flex',
                 flexDirection: index % 2 === 0 ? 'row' : 'row-reverse',
