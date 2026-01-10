@@ -204,7 +204,7 @@ export default function ContactPage() {
                 style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#008000', fontSize: '0.75rem', fontWeight: 600 }}
               >
                 <CheckCircle2 size={16} />
-                Message received. I'll get back to you soon.
+                Message received. I&apos;ll get back to you soon.
               </motion.div>
             )}
             {status === 'error' && (
@@ -235,7 +235,7 @@ export default function ContactPage() {
           border: none;
           border-bottom: 1px solid rgba(0,0,0,0.1);
           padding: 15px 0;
-          font-family: 'Syne', sans-serif;
+          font-family: var(--font-syne), sans-serif;
           font-size: 0.85rem;
           font-weight: 500;
           letter-spacing: 0.1em;
@@ -270,7 +270,7 @@ export default function ContactPage() {
         }
 
         .handwritten-name {
-          font-family: 'Rock Salt', cursive;
+          font-family: var(--font-rock-salt), cursive;
           filter: contrast(120%) brightness(80%);
           display: inline-block;
           cursor: default;

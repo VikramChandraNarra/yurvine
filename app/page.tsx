@@ -243,7 +243,7 @@ export default function Home() {
         }
         
         .serif {
-          font-family: 'Playfair Display', serif;
+          font-family: var(--font-playfair), serif;
         }
 
         /* Ensure noise overlay covers everything */

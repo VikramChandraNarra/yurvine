@@ -1,8 +1,28 @@
 import type { Metadata } from 'next'
+import { Syne, Rock_Salt, Playfair_Display } from 'next/font/google'
 import './globals.css'
 
+const syne = Syne({ 
+  subsets: ['latin'],
+  weight: ['400', '700', '800'],
+  variable: '--font-syne',
+})
+
+const rockSalt = Rock_Salt({ 
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-rock-salt',
+})
+
+const playfair = Playfair_Display({ 
+  subsets: ['latin'],
+  weight: ['400', '900'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair',
+})
+
 export const metadata: Metadata = {
-  title: 'YUVA',
+  title: 'yuva narra',
   description: 'YUVA | Musician Portfolio',
 }
 
@@ -12,12 +32,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Syne:wght@400;700;800&family=Playfair+Display:ital,wght@0,400;0,900;1,400&display=swap" rel="stylesheet" />
-      </head>
+    <html lang="en" className={`${syne.variable} ${rockSalt.variable} ${playfair.variable}`}>
       <body>{children}</body>
     </html>
   )

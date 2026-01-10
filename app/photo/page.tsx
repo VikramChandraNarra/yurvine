@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowLeft, Camera, Maximize2 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const photos = [
   { id: 1, src: '/IMG_6837.jpg', alt: 'Live Performance' },
@@ -229,12 +230,11 @@ export default function PhotoPage() {
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
-              <img
+              <Image
                 src={photo.src}
                 alt={photo.alt}
+                fill
                 style={{
-                  width: '100%',
-                  height: '100%',
                   objectFit: 'cover',
                   filter: 'grayscale(100%) contrast(1.1)',
                   transition: 'filter 0.5s ease'

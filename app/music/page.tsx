@@ -256,7 +256,7 @@ export default function MusicPage() {
                     <div style={{ height: '1px', width: '48px', backgroundColor: 'rgba(0,0,0,0.1)' }} />
                     <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', opacity: 0.4 }}>{song.year}</span>
                   </div>
-                  <h2 style={{ fontSize: '2.5rem', fontWeight: 800, tracking: '-0.02em', lineHeight: 1.1 }}>
+                  <h2 style={{ fontSize: '2.5rem', fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
                     {song.title}
                   </h2>
                 </div>
@@ -303,7 +303,7 @@ export default function MusicPage() {
 
       <style jsx global>{`
         .serif {
-          font-family: 'Playfair Display', serif;
+          font-family: var(--font-playfair), serif;
         }
 
         .noise-overlay {
@@ -370,7 +370,7 @@ export default function MusicPage() {
         }
 
         .handwritten-name {
-          font-family: 'Rock Salt', cursive;
+          font-family: var(--font-rock-salt), cursive;
           filter: contrast(120%) brightness(80%);
           display: inline-block;
           cursor: default;
