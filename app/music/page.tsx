@@ -10,42 +10,42 @@ const songs = [
     year: "2026",
     id: "0bTZhmFDxEas6hq2Mpow8d",
     type: "album",
-    excerpt: "The first breath of the year. 'vent to me' captures that midnight frequency when the world goes quiet and the secrets come out. It's about being that safe space in a city that never stops talking."
+    excerpt: "“Vent to Me” explores the emotional and symbolic distance between two people whose paths and futures no longer align. I wrote this song entirely off instinct, straight off the dome, because I knew exactly what I needed to say. It’s told from the perspective of a boy who refuses to give up, someone who would push through anything just to be there for the girl he loves. The song captures his willingness to listen, to carry her weight, and to be her safe space. “Vent to Me” is about unconditional presence wanting her to open up completely as proof of how deeply he cares."
   },
   {
     title: "Would You Still Stay? (Interlude)",
     year: "2025",
     id: "10XOyCJpNHHTk5gczW02x7",
     type: "album",
-    excerpt: "A moment of vulnerability caught in the middle of the noise. This interlude was written at 3 AM on a rainy Tuesday, questioning the permanence of connections in a fleeting digital age."
+    excerpt: "“Would You Still Stay?” was written in a moment of complete vulnerability. I wrote this interlude at 3AM on a rainy Tuesday, when everything felt quiet and exposed. The question “If everything changed, would you still stay?” repeats throughout the song, representing a fear of abandonment when life gets difficult. It reflects the desire for a love that doesn’t disappear when things get heavy, someone who chooses to stay, even through uncertainty."
   },
   {
     title: "Pride (feat. E.T.L)",
     year: "2025",
     id: "1EfQ89t19XYfxZ73w2HoWK",
     type: "album",
-    excerpt: "A collaboration that pushed boundaries. Working with E.T.L brought a raw energy to the track, exploring the weight of ego and the liberation of letting it all go."
+    excerpt: "This collaboration pushed us outside our comfort zone. E.T.L’s presence added a raw intensity that elevated the track. The song explores a lack of commitment, questioning someone who claims to have strong values but fails to prove them through consistency or action. It calls out the disconnect between what’s said and what’s actually shown."
   },
   {
     title: "Focus Up",
     year: "2025",
     id: "15PKLXLcDe6IllU2zXe52k",
     type: "album",
-    excerpt: "This was the turning point. 'Focus Up' is a mantra turned into a beat. It's the sound of sharpening the vision and cutting out the static."
+    excerpt: "In a society where social media plays a central role in everyday life, this song explores the importance of focus and presence in a relationship. It highlights how constant online attention can blur boundaries, making it easy for one person to drift, become overly “friendly,” or emotionally cross lines without even realizing it."
   },
   {
     title: "I got what you need (feat. Wambso)",
     year: "2025",
     id: "3OCBoGADxlIIJiDzsO40sG",
     type: "album",
-    excerpt: "Wambso and I wanted to create something that felt like a warm breeze on a Malaysian evening. It's smooth, confident, and unapologetically soulful."
+    excerpt: "This song is a conversation between a girl and a boy in a relationship, showing how the girl feels entitled to him. With its dancey, high-energy vibe, the track flips a heavy situation into something people can move to, using music as a release from real-life relationship tension."
   },
   {
     title: "I don't fw change (feat. WorldSigned & E.T.L)",
     year: "2025",
     id: "0kjvBChqQBMpOBj0LZCy0y",
     type: "album",
-    excerpt: "Change is terrifying, so we made a song about resisting it until you can't anymore. A heavy-hitter with WorldSigned and E.T.L providing the perfect contrast."
+    excerpt: "This song is written from the perspective of someone living with Bipolar Disorder, capturing the internal conflict that comes with loving deeply while struggling with emotional extremes. One of the central lines in the chorus “Then you gonna choose love, and I’m gon’ take your place” speaks to how choosing to love someone with bipolar disorder can be difficult, because everything can change so quickly and intensely. The chorus plays out as a conversation within himself, revealing the pain, guilt, and fear that come from trying to treat the woman he loves right while battling his own mind."
   },
   {
     title: "MOVE YOUR BODY (feat. Andre Ang & WorldSigned)",
@@ -115,14 +115,18 @@ const songs = [
 export default function MusicPage() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
+    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      if (!isTouch) {
+        setMousePos({ x: e.clientX, y: e.clientY });
+      }
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isTouch]);
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#fdfdfd', color: '#000', position: 'relative' }}>
@@ -133,6 +137,7 @@ export default function MusicPage() {
         style={{ 
           left: mousePos.x, 
           top: mousePos.y,
+          display: isTouch ? 'none' : 'block'
         }} 
       />
       <div 
@@ -140,6 +145,7 @@ export default function MusicPage() {
         style={{ 
           left: mousePos.x, 
           top: mousePos.y,
+          display: isTouch ? 'none' : 'block'
         }} 
       />
 
@@ -302,6 +308,10 @@ export default function MusicPage() {
       </footer>
 
       <style jsx global>{`
+        body {
+          cursor: ${isTouch ? 'default' : 'none'};
+        }
+
         .serif {
           font-family: var(--font-playfair), serif;
         }
@@ -385,10 +395,44 @@ export default function MusicPage() {
           border-color: #000 !important;
         }
 
+        @media (max-width: 1024px) {
+          main {
+            padding-top: 100px !important;
+          }
+          
+          .song-section {
+            gap: 40px !important;
+          }
+        }
+
         @media (max-width: 768px) {
           section {
             flex-direction: column !important;
-            gap: 40px !important;
+            gap: 32px !important;
+          }
+
+          .player-container {
+            width: 100% !important;
+          }
+
+          .player-container iframe {
+            height: 352px !important;
+          }
+
+          h2 {
+            font-size: 1.8rem !important;
+          }
+
+          .handwritten-name {
+            font-size: 3rem !important;
+          }
+
+          header {
+            margin-bottom: 64px !important;
+          }
+
+          div[style*="gap: 160px"] {
+            gap: 80px !important;
           }
         }
       `}</style>

@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     }
 
     const data = await resend.emails.send({
-      from: 'Yuva Website <onboarding@resend.dev>', // Change this once you verify your domain in Resend
+      from: 'Yurvine Website <onboarding@resend.dev>', // Change this once you verify your domain in Resend
       to: notificationEmail,
       subject: `New Message from ${name}`,
       replyTo: email,

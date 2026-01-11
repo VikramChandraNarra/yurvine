@@ -19,18 +19,22 @@ const photos = [
 export default function PhotoPage() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const isUserScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
+    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      if (!isTouch) {
+        setMousePos({ x: e.clientX, y: e.clientY });
+      }
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isTouch]);
 
   // Horizontal scroll with mouse wheel and touch gestures
   useEffect(() => {
@@ -143,6 +147,7 @@ export default function PhotoPage() {
         style={{ 
           left: mousePos.x, 
           top: mousePos.y,
+          display: isTouch ? 'none' : 'block',
           background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%)'
         }} 
       />
@@ -151,6 +156,7 @@ export default function PhotoPage() {
         style={{ 
           left: mousePos.x, 
           top: mousePos.y,
+          display: isTouch ? 'none' : 'block',
           backgroundColor: '#fff'
         }} 
       />
@@ -273,6 +279,10 @@ export default function PhotoPage() {
       </div>
 
       <style jsx global>{`
+        body {
+          cursor: ${isTouch ? 'default' : 'none'};
+        }
+
         .scrollable-gallery {
           scrollbar-width: none;
           -ms-overflow-style: none;
@@ -352,6 +362,38 @@ export default function PhotoPage() {
           z-index: 1000;
           transform: translate(-50%, -50%);
           transition: transform 0.1s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
+        }
+
+        @media (max-width: 768px) {
+          nav {
+            padding: 20px !important;
+          }
+
+          .scrollable-gallery {
+            padding: 0 20px !important;
+            gap: 20px !important;
+          }
+
+          .scrollable-gallery > div {
+            gap: 20px !important;
+          }
+
+          .scrollable-gallery div[style*="width: clamp"] {
+            width: 85vw !important;
+            height: 60vh !important;
+          }
+
+          .photo-info {
+            opacity: 1 !important;
+          }
+
+          .gallery-img {
+            filter: grayscale(0%) contrast(1) !important;
+          }
+
+          div[style*="bottom: 40px"] {
+            bottom: 20px !important;
+          }
         }
       `}</style>
     </div>

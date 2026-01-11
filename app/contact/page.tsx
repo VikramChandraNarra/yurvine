@@ -7,16 +7,20 @@ import Link from 'next/link';
 export default function ContactPage() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   useEffect(() => {
+    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      if (!isTouch) {
+        setMousePos({ x: e.clientX, y: e.clientY });
+      }
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isTouch]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,6 +53,7 @@ export default function ContactPage() {
         style={{ 
           left: mousePos.x, 
           top: mousePos.y,
+          display: isTouch ? 'none' : 'block'
         }} 
       />
       <div 
@@ -56,6 +61,7 @@ export default function ContactPage() {
         style={{ 
           left: mousePos.x, 
           top: mousePos.y,
+          display: isTouch ? 'none' : 'block'
         }} 
       />
 
@@ -222,13 +228,17 @@ export default function ContactPage() {
         </motion.form>
 
         <footer style={{ marginTop: '120px', display: 'flex', gap: '40px', opacity: 0.3 }}>
-          <a href="mailto:contact@yuva.com" className="social-link">EMAIL</a>
+          <a href="mailto:contact@yurvine.com" className="social-link">EMAIL</a>
           <a href="https://instagram.com/yurvine" target="_blank" className="social-link">INSTAGRAM</a>
           <a href="https://twitter.com/yurvine" target="_blank" className="social-link">TWITTER</a>
         </footer>
       </main>
 
       <style jsx global>{`
+        body {
+          cursor: ${isTouch ? 'default' : 'none'};
+        }
+
         .form-input {
           width: 100%;
           background: transparent;
@@ -333,11 +343,40 @@ export default function ContactPage() {
           transition: transform 0.1s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
         }
 
-        .cursor-hover {
+        .custom-cursor.cursor-hover {
           width: 40px;
           height: 40px;
           background: transparent;
           border: 1px solid rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+          nav {
+            padding: 20px !important;
+          }
+
+          main {
+            padding-top: 100px !important;
+          }
+
+          .handwritten-name {
+            font-size: 3rem !important;
+          }
+
+          form {
+            gap: 24px !important;
+          }
+
+          button {
+            padding: 16px !important;
+          }
+
+          footer {
+            margin-top: 80px !important;
+            gap: 20px !important;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
         }
       `}</style>
     </div>

@@ -3,15 +3,19 @@ import { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 
 export default function Home() {
-  const navItems = ['PHOTO', 'VIDEO', 'MUSIC', 'WRITING', 'ABOUT', 'CONTACT'];
+  const navItems = ['PHOTO', 'VIDEO', 'MUSIC', 'ABOUT', 'CONTACT'];
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
   const { scrollY } = useScroll();
 
   useEffect(() => {
+    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      if (!isTouch) {
+        setMousePos({ x: e.clientX, y: e.clientY });
+      }
     };
     const handleScroll = () => {
       setScrolled(window.scrollY > 100);
@@ -38,6 +42,7 @@ export default function Home() {
         style={{ 
           left: mousePos.x, 
           top: mousePos.y,
+          display: isTouch ? 'none' : 'block'
         }} 
       />
       <div 
@@ -45,6 +50,7 @@ export default function Home() {
         style={{ 
           left: mousePos.x, 
           top: mousePos.y,
+          display: isTouch ? 'none' : 'block'
         }} 
       />
 
@@ -53,7 +59,7 @@ export default function Home() {
         animate={{
           position: scrolled ? 'fixed' : 'absolute',
           top: scrolled ? 0 : 'calc(50vh + 120px)',
-          padding: scrolled ? '20px 40px' : '0px',
+          padding: scrolled ? (isTouch ? '15px 20px' : '20px 40px') : '0px',
           backgroundColor: scrolled ? 'rgba(253, 253, 253, 0.8)' : 'transparent',
           backdropFilter: scrolled ? 'blur(10px)' : 'none',
           borderBottom: scrolled ? '1px solid rgba(0,0,0,0.05)' : 'none',
@@ -65,8 +71,9 @@ export default function Home() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: 'clamp(20px, 4vw, 45px)',
+          gap: 'clamp(15px, 4vw, 45px)',
           left: 0,
+          flexWrap: 'wrap',
         }}
       >
         {navItems.map((item) => (
@@ -118,7 +125,7 @@ export default function Home() {
             color: '#1a1a1a',
             transform: 'rotate(-2deg)',
           }}>
-            Yuva
+            Yurvine
           </h1>
           <div style={{
             width: '60px',
@@ -174,7 +181,7 @@ export default function Home() {
               color: '#000',
               fontWeight: 400,
             }}>
-              I’m <span style={{ fontWeight: 900, fontStyle: 'italic' }}>Yuva</span>, I’m 17, and I’ve been making music for as long as I can remember. I started because I loved how music made me feel, and over time it became the thing I care about the most.
+              I’m <span style={{ fontWeight: 900, fontStyle: 'italic' }}>Yurvine</span>, I’m 17, and I’ve been making music for as long as I can remember. I started because I loved how music made me feel, and over time it became the thing I care about the most.
             </p>
           </motion.div>
 
@@ -201,9 +208,10 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="vision-card"
             style={{ 
               backgroundColor: '#000', 
-              padding: '60px', 
+              padding: 'clamp(30px, 8vw, 60px)', 
               borderRadius: '2px',
               color: '#fff',
               position: 'relative',
@@ -224,7 +232,7 @@ export default function Home() {
               lineHeight: 1.5,
               fontWeight: 400,
             }}>
-              My goal is simple but huge. I want to be the <span style={{ color: '#fff', fontStyle: 'italic' }}>biggest Indian RnB artist</span> in the world and show that our sound belongs on the biggest stages. One day I want to perform at the Super Bowl, not for the fame, but to prove that a kid with a laptop, a mic, and a vision can come from anywhere and still make it all the way.
+              My goal is simple but huge. I want to be the <span style={{ color: '#fff', fontStyle: 'italic' }}>biggest RnB artist</span> in the world and show that our sound belongs on the biggest stages. One day I want to perform at the Super Bowl, not for the fame, but to prove that a kid with a laptop, a mic, and a vision can come from anywhere and still make it all the way.
             </p>
           </motion.div>
         </div>
@@ -232,10 +240,14 @@ export default function Home() {
 
       {/* Footer Space */}
       <footer style={{ padding: '100px 0', textAlign: 'center', opacity: 0.1 }}>
-        <p style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.4em' }}>YUVA 2026</p>
+        <p style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.4em' }}>YURVINE 2026</p>
       </footer>
 
       <style jsx global>{`
+        body {
+          cursor: ${isTouch ? 'default' : 'none'};
+        }
+
         .nav-item:hover {
           opacity: 1 !important;
           letter-spacing: 0.4em !important;
@@ -249,6 +261,21 @@ export default function Home() {
         /* Ensure noise overlay covers everything */
         .noise-overlay {
           z-index: 2000;
+        }
+
+        @media (max-width: 768px) {
+          .nav-item {
+            font-size: 0.55rem !important;
+            letter-spacing: 0.2em !important;
+          }
+          
+          section {
+            padding: 80px 20px !important;
+          }
+
+          .vision-card {
+            padding: 40px 24px !important;
+          }
         }
       `}</style>
     </div>

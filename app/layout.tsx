@@ -22,8 +22,8 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'yuva narra',
-  description: 'YUVA | Musician Portfolio',
+  title: 'yurvine',
+  description: 'YURVINE | Musician Portfolio',
 }
 
 export default function RootLayout({
