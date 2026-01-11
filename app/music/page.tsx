@@ -6,18 +6,18 @@ import Link from 'next/link';
 
 const songs = [
   {
+    title: "Would You Still Stay? (Interlude)",
+    year: "2025",
+    id: "48k7MYV3IiLtFm2ky8314i",
+    type: "track",
+    excerpt: "“Would You Still Stay?” was written in a moment of complete vulnerability. I wrote this interlude at 3AM on a rainy Tuesday, when everything felt quiet and exposed. The question “If everything changed, would you still stay?” repeats throughout the song, representing a fear of abandonment when life gets difficult. It reflects the desire for a love that doesn’t disappear when things get heavy, someone who chooses to stay, even through uncertainty."
+  },
+  {
     title: "vent to me",
     year: "2026",
     id: "0bTZhmFDxEas6hq2Mpow8d",
     type: "album",
     excerpt: "“Vent to Me” explores the emotional and symbolic distance between two people whose paths and futures no longer align. I wrote this song entirely off instinct, straight off the dome, because I knew exactly what I needed to say. It’s told from the perspective of a boy who refuses to give up, someone who would push through anything just to be there for the girl he loves. The song captures his willingness to listen, to carry her weight, and to be her safe space. “Vent to Me” is about unconditional presence wanting her to open up completely as proof of how deeply he cares."
-  },
-  {
-    title: "Would You Still Stay? (Interlude)",
-    year: "2025",
-    id: "10XOyCJpNHHTk5gczW02x7",
-    type: "album",
-    excerpt: "“Would You Still Stay?” was written in a moment of complete vulnerability. I wrote this interlude at 3AM on a rainy Tuesday, when everything felt quiet and exposed. The question “If everything changed, would you still stay?” repeats throughout the song, representing a fear of abandonment when life gets difficult. It reflects the desire for a love that doesn’t disappear when things get heavy, someone who chooses to stay, even through uncertainty."
   },
   {
     title: "Pride (feat. E.T.L)",
@@ -29,8 +29,8 @@ const songs = [
   {
     title: "Focus Up",
     year: "2025",
-    id: "15PKLXLcDe6IllU2zXe52k",
-    type: "album",
+    id: "4MjqMsIBMRL3mc1X5ZdxP0",
+    type: "track",
     excerpt: "In a society where social media plays a central role in everyday life, this song explores the importance of focus and presence in a relationship. It highlights how constant online attention can blur boundaries, making it easy for one person to drift, become overly “friendly,” or emotionally cross lines without even realizing it."
   },
   {
@@ -43,8 +43,8 @@ const songs = [
   {
     title: "I don't fw change (feat. WorldSigned & E.T.L)",
     year: "2025",
-    id: "0kjvBChqQBMpOBj0LZCy0y",
-    type: "album",
+    id: "36b3Ue3iK9Mzulh7r0p9I1",
+    type: "track",
     excerpt: "This song is written from the perspective of someone living with Bipolar Disorder, capturing the internal conflict that comes with loving deeply while struggling with emotional extremes. One of the central lines in the chorus “Then you gonna choose love, and I’m gon’ take your place” speaks to how choosing to love someone with bipolar disorder can be difficult, because everything can change so quickly and intensely. The chorus plays out as a conversation within himself, revealing the pain, guilt, and fear that come from trying to treat the woman he loves right while battling his own mind."
   },
   {
@@ -102,13 +102,6 @@ const songs = [
     id: "6XLViSaLi5pnkM1oaOGeLF",
     type: "album",
     excerpt: "Seeing 'You and Me' through different lenses. These remixes by WorldSigned and others showed me the infinite possibilities of a single melody."
-  },
-  {
-    title: "Can't Escape",
-    year: "2022",
-    id: "62ZhjkOHtbzF0zf0BnCYub",
-    type: "album",
-    excerpt: "The debut. A frantic, claustrophobic anthem about the feeling of being trapped in your own city. Still feels as urgent today as it did back then."
   }
 ];
 
@@ -272,7 +265,7 @@ export default function MusicPage() {
                 </p>
 
                 <motion.a
-                  href={`https://open.spotify.com/album/${song.id}`}
+                  href={`https://open.spotify.com/${song.type}/${song.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   onMouseEnter={() => setIsHovered(true)}
