@@ -79,7 +79,7 @@ export default function Home() {
         {navItems.map((item) => (
           <a
             key={item}
-            href={item === 'MUSIC' ? '/music' : item === 'PHOTO' ? '/photo' : item === 'CONTACT' ? '/contact' : item === 'VIDEO' ? 'https://www.instagram.com/yurvinee/' : `#${item.toLowerCase()}`}
+            href={item === 'MUSIC' ? '/music' : item === 'PHOTO' ? '/photo' : item === 'CONTACT' ? '/contact' : item === 'VIDEO' ? 'https://www.youtube.com/@yurvine5448' : `#${item.toLowerCase()}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             style={{

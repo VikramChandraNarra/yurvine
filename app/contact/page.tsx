@@ -230,7 +230,7 @@ export default function ContactPage() {
         <footer style={{ marginTop: '120px', display: 'flex', gap: '40px', opacity: 0.3 }}>
           <a href="mailto:contact@yurvine.com" className="social-link">EMAIL</a>
           <a href="https://instagram.com/yurvine" target="_blank" className="social-link">INSTAGRAM</a>
-          <a href="https://twitter.com/yurvine" target="_blank" className="social-link">TWITTER</a>
+          <a href="https://www.youtube.com/@yurvine5448" target="_blank" rel="noopener noreferrer" className="social-link">YOUTUBE</a>
         </footer>
       </main>
 
