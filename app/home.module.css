@@ -52,13 +52,16 @@
 @media (max-width: 600px) {
   .artistName {
     font-size: 21vw;
-    top: 40%;
+    top: 17%;
+    transform: translateX(-50%);
   }
   .portrait {
-    top: 20%;
-    height: 55%;
+    /* Keep the cutout below the name's .8 line-height at every phone width. */
+    top: calc(17% + 16.8vw + 20px);
+    bottom: 24%;
+    height: auto;
     width: 76%;
-    left: 52%;
+    left: 50%;
   }
 }
 

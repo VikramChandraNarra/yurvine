@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { ArrowDown } from 'lucide-react';
 import styles from './home.module.css';
 import { motion, useReducedMotion } from 'framer-motion';
 
@@ -124,25 +125,32 @@ export default function Home() {
         </motion.div>
 
         {/* Scroll Indicator */}
-        <motion.div 
+        <motion.a
+          href="#about"
+          aria-label="Scroll to about"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           initial={{ opacity: 0 }}
           animate={{ opacity: scrolled ? 0 : 1 }}
           style={{
             position: 'absolute',
             bottom: '40px',
             display: 'flex',
-            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
-            gap: '10px',
+            width: '44px',
+            height: '44px',
+            color: 'rgba(0,0,0,0.45)',
           }}
         >
-          <span style={{ fontSize: '0.6rem', fontWeight: 800, letterSpacing: '0.4em', opacity: 0.3 }}>SCROLL TO EXPLORE</span>
-          <motion.div 
-            animate={{ y: reduceMotion ? 0 : [0, 10, 0] }}
+          <motion.span
+            animate={{ y: reduceMotion ? 0 : [0, 5, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            style={{ width: '1px', height: '40px', background: 'rgba(0,0,0,0.2)' }}
-          />
-        </motion.div>
+            style={{ display: 'flex' }}
+          >
+            <ArrowDown size={24} strokeWidth={1.25} aria-hidden="true" />
+          </motion.span>
+        </motion.a>
       </section>
 
       {/* Bio Section */}
