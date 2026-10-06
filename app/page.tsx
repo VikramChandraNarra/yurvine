@@ -1,6 +1,8 @@
 'use client'
-import { useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import styles from './home.module.css';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export default function Home() {
   const navItems = ['PHOTO', 'VIDEO', 'MUSIC', 'ABOUT', 'CONTACT'];
@@ -8,12 +10,14 @@ export default function Home() {
   const [isHovered, setIsHovered] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
-  const { scrollY } = useScroll();
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const touch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    setIsTouch(touch);
+    setMousePos({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
     const handleMouseMove = (e: MouseEvent) => {
-      if (!isTouch) {
+      if (!touch) {
         setMousePos({ x: e.clientX, y: e.clientY });
       }
     };
@@ -28,10 +32,6 @@ export default function Home() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  // Parallax calculations for the hero
-  const logoX = (mousePos.x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 0)) * 0.02;
-  const logoY = (mousePos.y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 0)) * 0.02;
 
   return (
     <div style={{ backgroundColor: '#fdfdfd', minHeight: '200vh' }}>
@@ -55,10 +55,11 @@ export default function Home() {
       />
 
       {/* Sticky Navigation */}
-      <motion.nav 
+      <motion.nav
+        aria-label="Main navigation"
         animate={{
           position: scrolled ? 'fixed' : 'absolute',
-          top: scrolled ? 0 : 'calc(50vh + 120px)',
+          top: scrolled ? 0 : '80svh',
           padding: scrolled ? (isTouch ? '15px 20px' : '20px 40px') : '0px',
           backgroundColor: scrolled ? 'rgba(253, 253, 253, 0.8)' : 'transparent',
           backdropFilter: scrolled ? 'blur(10px)' : 'none',
@@ -101,43 +102,25 @@ export default function Home() {
         ))}
       </motion.nav>
 
-      {/* Hero Section */}
-      <section style={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'relative',
-        zIndex: 1,
-      }}>
-        {/* Animated Handwritten Logo Container */}
-        <motion.div 
-          style={{
-            marginBottom: '40px',
-            transform: `translate(${logoX}px, ${logoY}px)`,
-            transition: 'transform 0.1s ease-out',
-          }}
-          animate={{ opacity: scrolled ? 0 : 1, scale: scrolled ? 0.8 : 1 }}
+      {/* The original minimal hero, with a portrait layered into the name. */}
+      <section className={styles.hero}>
+        <motion.div
+          className={styles.heroArtwork}
+          initial={false}
+          animate={{ opacity: scrolled ? 0 : 1 }}
+          transition={{ duration: reduceMotion ? 0 : 0.5 }}
         >
-          <h1 className="handwritten-name" style={{
-            fontSize: 'clamp(4rem, 15vw, 10rem)',
-            fontWeight: 'normal',
-            margin: 0,
-            color: '#1a1a1a',
-            transform: 'rotate(-2deg)',
-          }}>
-            Yurvine
-          </h1>
-          <div style={{
-            width: '60px',
-            height: '3px',
-            background: '#000',
-            margin: '15px auto',
-            opacity: 0.1,
-            borderRadius: '50%',
-            filter: 'blur(2px)',
-          }} />
+          <h1 className={styles.artistName}>YURVINE</h1>
+          <div className={styles.portrait}>
+            <Image
+              src="/images/yurvine-portrait.webp"
+              alt="Yurvine in a lavender hoodie"
+              width={1700}
+              height={3200}
+              priority
+              sizes="(max-width: 600px) 70vw, 40vw"
+            />
+          </div>
         </motion.div>
 
         {/* Scroll Indicator */}
@@ -155,7 +138,7 @@ export default function Home() {
         >
           <span style={{ fontSize: '0.6rem', fontWeight: 800, letterSpacing: '0.4em', opacity: 0.3 }}>SCROLL TO EXPLORE</span>
           <motion.div 
-            animate={{ y: [0, 10, 0] }}
+            animate={{ y: reduceMotion ? 0 : [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             style={{ width: '1px', height: '40px', background: 'rgba(0,0,0,0.2)' }}
           />

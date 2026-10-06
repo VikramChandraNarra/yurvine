@@ -1,0 +1,68 @@
+.hero {
+  height: 100svh;
+  min-height: 580px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  isolation: isolate;
+}
+
+.heroArtwork {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.artistName {
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(100px, 21.3vw, 380px);
+  line-height: .8;
+  letter-spacing: -.085em;
+  font-weight: 900;
+  color: #1a1a1a;
+  margin: 0;
+  padding-right: .085em;
+  white-space: nowrap;
+}
+
+.portrait {
+  position: absolute;
+  top: 16%;
+  left: 51%;
+  transform: translateX(-50%);
+  height: 61%;
+  width: 50%;
+}
+
+.portrait img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  object-position: center top;
+  filter: saturate(.55) contrast(1.025);
+  mask-image: linear-gradient(to bottom, #000 62%, rgba(0,0,0,.85) 74%, transparent 100%);
+}
+
+@media (max-width: 600px) {
+  .artistName {
+    font-size: 21vw;
+    top: 40%;
+  }
+  .portrait {
+    top: 20%;
+    height: 55%;
+    width: 76%;
+    left: 52%;
+  }
+}
+
+@media (max-height: 650px) and (min-width: 601px) {
+  .hero { min-height: 460px; }
+  .portrait { top: 10%; height: 68%; }
+}
